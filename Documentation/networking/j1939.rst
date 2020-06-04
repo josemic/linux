@@ -446,5 +446,12 @@ Set J1939 message priority
                 error(1, errno, "setsockopt j1939_send_prio %u", j1939_prio);
 
 
+Sending of large J1939 (E)TP messages
+-------------------------------------
+
+When sending of (large) j1939 messages, the return value of the send command has to be checked. If the functions returns less bytes than has been tried to send, the remaining bytes have to be send.
+Calling send() with the remaining bytes, doesn't start a new message, the data is queued for the current running message transfer.
+
+
 
             
