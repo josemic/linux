@@ -376,7 +376,7 @@ only j1939.addr changed to the new SA, and must then send a valid address claim
 packet. This restarts the state machine in the kernel (and any other
 participant on the bus) for this NAME.
 
-can-utils also include the jacd tool, so it can be used as code example or as
+can-utils also include the j1939acd tool, so it can be used as code example or as
 default Address Claiming daemon.
 
 Send Examples
@@ -420,3 +420,31 @@ Send:
 	};
 
 	sendto(sock, dat, sizeof(dat), 0, (const struct sockaddr *)&saddr, sizeof(saddr));
+
+
+Further Information:
+
+Activation / deactivation of Promiscuous mode
+---------------------------------------------
+
+.. code-block:: C
+
+    int j1939_promisc = 1; // value range 0=deactivate, 1= activate
+    res = setsockopt(sock, SOL_CAN_J1939, SO_J1939_PROMISC, &j1939_promisc, sizeof(j1939_promisc));
+    if (res < 0)
+                error(1, errno, "setsockopt j1939_promisc %u", j1939_promisc);
+                
+
+Set J1939 message priority
+--------------------------
+
+.. code-block:: C
+
+    int j1939_prio = 1; // value range: 0..7, default = 6
+    res = setsockopt(sock, SOL_CAN_J1939, SO_J1939_SEND_PRIO, &j1939_prio, sizeof(j1939_prio));
+    if (res < 0)
+                error(1, errno, "setsockopt j1939_send_prio %u", j1939_prio);
+
+
+
+            
