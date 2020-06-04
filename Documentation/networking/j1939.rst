@@ -420,3 +420,20 @@ Send:
 	};
 
 	sendto(sock, dat, sizeof(dat), 0, (const struct sockaddr *)&saddr, sizeof(saddr));
+
+
+Further Information:
+
+Activation / deactivation of Promiscuous mode
+---------------------------------------------
+
+.. code-block:: C
+
+    int j1939_promisc = 1; // value range 0=deactivate, 1= activate
+    res = setsockopt(sock, SOL_CAN_J1939, SO_J1939_PROMISC, &j1939_promisc, sizeof(j1939_promisc));
+    if (res < 0)
+                error(1, errno, "setsockopt j1939_promisc %u", j1939_promisc);
+                
+
+
+            
